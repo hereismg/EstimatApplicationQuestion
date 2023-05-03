@@ -95,7 +95,9 @@
 \subsubsection{确定难度度量指标}
 
 假定\textbf{题目难度度量因素集}$S_{factor}$，且有：
-$$S_{factor} = \{ s_1, s_2, s_3, s_4 \}$$
+\begin{equation}
+    S_{factor} = \{ s_1, s_2, s_3, s_4 \}
+\end{equation}
 
 其中$s_1$、$s_2$、$s_3$和$s_4$为四个影响题目难度的因素，分别代表知识点数量、数学运算的难度、题目背景的复杂性和个人主观难度判断。
 
@@ -122,31 +124,33 @@ $$M_{diff}(i, j)\in S_{level}$$
 $$M_{diff}'(i, j, k)\in S_{level}$$
 
 得到每个教师的题目难度得分矩阵后，分别对每一题每个因素求教师数量的平均值，设为最终的题目难度得分矩阵，即：
-$$
-M_{diff}(i, j) = 
+\begin{equation*}
+    M_{diff}(i, j) = 
     \frac{
         \sum_{k = 1}^{n}M_{diff}'(i, j, k)
     }{n}
-$$
+\end{equation*}
 
 \subsubsection{确定难度度量权重}
 
 假定\textbf{题目难度因素权重序列}$L_{weight}$，其中$L_{weight}(j)$表示第$j$个元素影响题目难度的权重，并且$1 \leq j \leq 4$。
 
 经分析，考虑：
-$$L_{weight} = [4, 3, 2, 1]$$
+\begin{equation}
+    L_{weight} = [4, 3, 2, 1]
+\end{equation}
 
 \subsubsection{计算题目难度值}
 
 构建题目难度度量模型之后，可以由此得到\textbf{难度值}$L_{diff}$，其中$L_{diff}(i)$表示第$i$题的难度值，并且满足$i \geq 1$。
 
 由建立的模型可得对应题目难度的加权值为：
-$$
-L_{diff}(i) = 
+\begin{equation*}
+    L_{diff}(i) = 
     \sum_{j = 1}^{4} \left [ 
         M_{diff}(i, j) \cdot L_{weight}(j)
     \right ]
-$$
+\end{equation*}
 
 \subsubsection{题目难度模糊综合评价}
 
