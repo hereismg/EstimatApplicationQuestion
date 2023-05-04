@@ -216,6 +216,60 @@ L_D(i) =
 
 \subsection{模型的应用举例——对附件2的难度分析}
 
+\subsubsection{分析题目难度}
+
+利用本模型，对题库里的所有题目进行了一次难度模糊综合评价。附件中名为“题目难度得分矩阵.xlsx”的三个文件，为团队三个成员对所有题目相应的难度评价结果。而在名为“题目难度系数计算.xlsx”的文件内：“题目难度因素权重序列”这一工作表为模型四个影响题目难度的因素对应的权重；“题目难度系数计算”这一工作表为，对三个题目难度得分矩阵求得最终的题目难度得分矩阵，并计算出每一题对应的难度值和难度系数；“最终结果”这一工作表为整合上述计算后最终的题目对应的难度系数。表\ref{tableDiff}为附件二中题目编号及其对应的难度系数。
+
+\begin{table}[htbp]
+    \centering
+    \label{tableDiff}
+    \caption{附件二题目对应难度系数}
+    \begin{tabular}{@{}cc@{}}
+    \toprule
+    \quad\quad\quad\quad\quad题目编号\quad\quad\quad\quad\quad & \quad\quad\quad\quad\quad难度系数\quad\quad\quad\quad\quad\\ \midrule
+    Q001 & 0.3860 \\
+    Q002 & 0.7193 \\
+    Q003 & 0.5088 \\
+    Q004 & 0.6842 \\
+    Q005 & 0.4386 \\
+    Q006 & 0.2105 \\
+    Q007 & 0.4912 \\
+    Q008 & 0.3509 \\
+    Q009 & 0.3333 \\
+    Q010 & 0.5439 \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+其他数据见“题目难度系数计算.xlsx”文件中的“最终结果”。
+
+\subsubsection{寻找题目难度相似的题目}
+
+对“题目难度系数计算.xlsx”文件中的“最终结果”中，以“难度系数”为关键字降序排序。容易看出，以难度为标准时，附件二的题目与附件一中的相似题目的对应关系如表\ref{tablesmr}。
+
+\begin{table}[htbp]
+    \centering
+    \label{tablesmr}
+    \caption{以难度为标准的相似题目}
+    \begin{tabular}{@{}cc@{}}
+    \toprule
+    \quad\quad\quad\quad\quad题目编号\quad\quad\quad\quad\quad & \quad\quad\quad\quad\quad相似题目\quad\quad\quad\quad\quad\\ \midrule
+    Q001 & P020, P043, P077, P092 \\
+    Q002 & P063 \\
+    Q003 & P031, P053, P016, P030 \\
+    Q004 & P089, P059 \\
+    Q005 & P067 \\
+    Q006 & P097, P078 \\
+    Q007 & P030, P012, P015, P023 \\
+    Q008 & P094, P019, P035, P061 \\
+    Q009 & P013, P038 \\
+    Q010 & P011, P048 \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+其他数据见“题目难度系数计算.xlsx”文件中的“最终结果”。
+
+\subsubsection{分析计算复杂度}
+
 
 
 % ============================================================
