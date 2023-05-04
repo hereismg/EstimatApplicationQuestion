@@ -2,6 +2,12 @@
 
 \subsection{相似性度量模型}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.2]{res/figure040956.png}
+    \caption{相似度量模型思维导图}
+\end{figure}
+
 \subsubsection{度量角度的确立}
 
 在对小学数学应用题的相似性度量过程中，通常会使用两个依据：
@@ -62,6 +68,7 @@
 因此，本文选用更适合“题目”这一研究对象的度量模型——LDA模型，进行相似性度量。LDA模型可以将题目集合分解为一组潜在的话题，并确定每个题目的话题分布。这些话题可以被视为题目的主题，因此LDA可以用于识别和分析题目集合中的主题和关键词，并确定题目之间的相似性。
 
 相似的，在“在线编程题目推荐算法”的相关研究中\cite{LuoRongHeZhiShiDianYuTuJuanJiDeZaiXianBianChengTiMuTuiJianSuanFa}，也选用了LDA模型作为题目相似性的判断依据之一，可见LDA模型在题目相似性度量上有出色的效果。接下来对LDA模型的介绍，也将围绕这篇论文进行描述。
+
 \begin{figure}[htbp]
     \centering
     \label{photo041942}
@@ -95,13 +102,13 @@
 
 首先，在得到给定题目与分词结果的前提下，可以得到$n$与$w_{n,l}$的值。先验参数$\alpha$与$\beta$则采取经验法则，默认设置为$\frac{1}{K}$ 。当然，还有如网格搜索、贝叶斯优化等其他方式选定更优的先验参数，但本文为研究便利，采用较为简单的方式确定先验参数，不采用其他的方式。读者可以根据自身需要尝试选用其他方式确定先验参数。接下来，则使用吉布斯采样法学习LDA模型中的主题分布$\theta _{n}$，过程如下：
 
-\begin{enumerate}
+\begin{mgAlgorithm}[吉布采样学习LDA模型过程]
     \item 给定主题总数$K$。
     \item 给每篇文档的每个词汇随机分配主题编号，初始化$Z_{n,l}$。
     \item 利用吉布斯公式对每个词汇进行采样，求出它对应的主题编号，并更新其主题编号$Z_{n,l}$。
     \item 重复上一步骤，直到吉布斯采样收敛或达到迭代次数。
     \item 输出每篇文档的主题分布$\theta _{n}$。
-\end{enumerate}
+\end{mgAlgorithm}
 
 然后，再取先前分词处理后的题目文本，获得题目集合$N$，再将其与超参数$\alpha$、$\beta$（默认设置为$\frac{1}{K}$）和知识点总数（主题总数）$K$输入LDA模型当中，采用吉布斯采样学习的方式进行参数估计，迭代后输出$N$个题目在$K$个知识点上的概率分布$I_{\varphi}$，如式(\ref{equation041947})所示。
 
@@ -133,7 +140,7 @@ LDA模型将题目视作知识点的集合，每个知识点作为题目的特�
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.3]{res/figure040041.png}
-    \caption{模糊评价思维导图}
+    \caption{难度度量模型思维导图}
 \end{figure}
 
 \subsubsection{确定模糊数学理论方法}
@@ -165,6 +172,7 @@ LDA模型将题目视作知识点的集合，每个知识点作为题目的特�
 \subsubsection{确定难度度量指标}
 
 假定\textbf{题目难度度量因素集}$S_{factor}$，且有：
+
 \begin{equation}
     S_{factor} = \{ s_1, s_2, s_3, s_4 \}
 \end{equation}
@@ -186,11 +194,13 @@ $$S_{level} = \{1, 2, 3, 4, 5\}$$
 假定\textbf{题目难度得分矩阵}$M_{diff}$，其中$M_{diff}(i, j)$表示第$i$题第$j$个因素的得分等级。
 
 因此，对于所有的$i \geq 1, 1 \leq j \leq 4$，有：
+
 $$M_{diff}(i, j)\in S_{level}$$
 
 由于题目难度得分矩阵不确定，并且对于不专业的人来说很难得到准确结果，考虑让多个教师合作完成。
 
 假定有$n$个教师分别完成各自的题目难度得分矩阵，\textbf{所有教师的题目难度矩阵}为一个三维矩阵$M_{diff}'$，其中$M_{diff}'(i, j, k)$表示第$k$个教师认为第$i$题第$j$个因素的得分，且对于所有的$i \geq 1, 1 \leq j \leq 4, 1 \leq k \leq n$，满足：
+
 $$M_{diff}'(i, j, k)\in S_{level}$$
 
 得到每个教师的题目难度得分矩阵后，分别对每一题每个因素求教师数量的平均值，设为最终的题目难度得分矩阵，即：
@@ -207,6 +217,7 @@ $$M_{diff}'(i, j, k)\in S_{level}$$
 假定\textbf{题目难度因素权重序列}$L_{weight}$，其中$L_{weight}(j)$表示第$j$个元素影响题目难度的权重，并且$1 \leq j \leq 4$。
 
 经分析，考虑：
+
 \begin{equation}
     L_{weight} = [4, 3, 2, 1]
 \end{equation}
@@ -216,6 +227,7 @@ $$M_{diff}'(i, j, k)\in S_{level}$$
 构建题目难度度量模型之后，可以由此得到\textbf{难度值}$L_{diff}$，其中$L_{diff}(i)$表示第$i$题的难度值，并且满足$i \geq 1$。
 
 由建立的模型可得对应题目难度的加权值为：
+
 \begin{equation}
     L_{diff}(i) = 
     \sum_{j = 1}^{4} \left [ 
@@ -244,11 +256,60 @@ L_D(i) =
 
 至此，题库中所有题目的难度均度量完成，即$L_D$。
 
-\subsection{模型的应用举例——对附件1题库的分类}
+\subsection{相似度模型的应用举例——对附件1题库的分类}
 
+\subsubsection{模型应用过程}
 
+为了保证模型的复用性，这里给出评价的步骤。通过对前文中模型的应用，对附件1中的题目进行分类。
 
-\subsection{模型的应用举例——对附件2的难度分析}
+\begin{enumerate}
+    \item 文本预处理。格式化已有的数据。让代码1中的程序可以识别题库。处理完成以后，导入到MySQL数据库中；
+    \item 文本分词和向量化。将数据导入到数据库中以后，通过LDA模型处理文本，提取特征；
+    \item 计算余弦相似度。得到各个题目之间的相似度矩阵。
+\end{enumerate}
+
+分类部分结果如表\ref{talbe041618}所示意（完整分类结果见\textbf{附件-分类.xlsx}）。
+
+\begin{table}[h]
+    \label{talbe041618}
+    \caption{分类结果}
+    \centering
+    \begin{tabular}{@{}cccclc@{}}
+        \toprule
+        一    & 二    & 三    & 四                    & 五    & ……                   \\ \midrule
+        P001 & P002 & P007 & P015                 & P023 &                      \\
+        P005 & P003 & P010 & P071                 & P024 &                      \\
+        P008 & P004 & P014 & P089                 & P028 &                      \\
+        P009 & P006 & P026 & P097                 & P032 &                      \\
+        P016 & P011 & P034 &                      & P043 &                      \\
+        P019 & P012 & P040 &                      & P050 &                      \\
+        P021 & P013 & P044 &                      & P054 &                      \\
+        P025 & P018 & P047 &                      & P068 &                      \\
+        P027 & P020 & P052 &                      & P075 &                      \\
+        P029 & P022 & P053 &                      & P081 &                      \\
+        P033 & P030 & P055 &                      & P084 &                      \\
+        P036 & P035 & P065 &                      & P087 &                      \\
+        P038 & P037 & P080 &                      & P088 &                      \\
+        P039 & P046 & P083 &                      &      &                      \\
+        P041 & P049 & P085 &                      &      &                      \\
+        P048 & P051 & P091 & \multicolumn{1}{l}{} &      & \multicolumn{1}{l}{} \\
+        \multicolumn{6}{c}{……}                                                  \\ \bottomrule
+        \end{tabular}
+\end{table}
+
+实际上，对于该种分类方法而言，越大的题库就有着越好的分类效果。更大的题库意味着更大的材料库，如此巨大的材料库对模型的意义就是能够拟合出更加合理、更加符合现实的结论。
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{res/figure041640.png}
+    \caption{分类步骤}
+\end{figure}
+
+\subsubsection{对于大规模题库}
+
+改方法的复杂度主要集中在文本预处理和文本分词向量化这两个步骤中。对于前者，在做出优化判断之前，需要优质的数据集，如果数据集不够优质，那么前期就要花费大量的时间整合原文本，所以优质的数据集可以节省大量的时间。对于后者的文本分词向量化，在这个步骤中，
+
+\subsection{难度评估模型的应用举例——对附件2的难度分析}
 
 
 
@@ -262,10 +323,49 @@ L_D(i) =
 
 \subsection{模型的优点}
 
+\subsubsection{基于LDA的相似性度量模型}
+
 \begin{itemize}
-    \item 
+    \item 题库的规模越大，题目的相似性判断越准确；
+    \item 充分考虑了文本和问题之间的关联，提高了题目之间相似性度量的准确性；
+    \item 能够处理高维稀疏数据：在文本相似性计算中，经常出现高维稀疏的数据表示，这对传统的文本相似度模型构成了挑战。
+\end{itemize}
+
+\subsubsection{基于模糊数学的难度度量模型}
+
+\begin{itemize}
+    \item 避免了题目难度非黑即白的二元评价，通过模糊综合评价方法给予题目难度更多的可能性；
+    \item 通过模糊数学的判断，很好的体现了人类的思维过程；
+    \item 提高了决策质量
 \end{itemize}
 
 \subsection{模型的缺点}
 
+\subsubsection{基于LDA的相似性度量模型}
+
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\subsubsection{基于模糊数学的难度度量模型}
+
+\begin{itemize}
+    \item 该模型还不能完全撇清人的主观性，只是对人的主观性做出了一定的限制；
+    \item 该模型的应用需要大量的人力一个个给题库中的题目评价才可以正常使用，在更大的题库中成本很高；
+    \item 该模型的评价体系完全基于专家过往的经验，没有坐落在可信的理论之上。
+\end{itemize}
+
 \subsection{模型的改进}
+
+\subsubsection{基于LDA的相似性度量模型}
+
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\subsubsection{基于模糊数学的难度度量模型}
+
+\begin{itemize}
+    \item 用AI评价代替人工评价。这样做有两个好处，首先AI评价相比于人工评价更加客观，其次AI评价相比于人工评价成本更低，效率更高；
+    \item 寻找
+\end{itemize}
