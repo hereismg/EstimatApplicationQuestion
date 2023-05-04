@@ -200,13 +200,13 @@ $$M_{diff}'(i, j, k)\in S_{level}$$
 \begin{equation}
 L_D(i) = 
     \frac{
-        L_{diff}(i)
+        L_{diff}(i) - \min L_{diff}
     } {
-        \max L_{diff} - \min L_{diff}
+        \max L_{diff}
     }
 \end{equation}
 
-其中$\max L_{diff}$为题库中题目最大的难度值、$\min L_{diff}$为题库中题目最小的难度值，并且有$0 < L_D(i) \leq 1, i \geq 1$。
+其中$\max L_{diff}$为题库中题目最大的难度值、$\min L_{diff}$为题库中题目最小的难度值，并且有$0 \leq L_D(i) \leq 1, i \geq 1$。
 
 至此，题库中所有题目的难度均度量完成，即$L_D$。
 
