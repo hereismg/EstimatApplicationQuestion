@@ -5,7 +5,7 @@
 \begin{figure}[htbp]
     \centering
     \includegraphics[scale=0.2]{res/figure040956.png}
-    \caption{相似度量模型思维导图}
+    \caption{相似性度量模型思维导图}
 \end{figure}
 
 \subsubsection{度量角度的确立}
@@ -183,7 +183,12 @@ LDA模型将题目视作知识点的集合，每个知识点作为题目的特�
 等级越高，某个因素对该题目的难度，相较于其他题目同样的因素与对应的题目的难度来说，贡献越大，即题目越难。
 
 经过考虑，划分为五个等级：
-$$S_{level} = \{1, 2, 3, 4, 5\}$$
+
+\begin{equation}
+S_{level} = \{1, 2, 3, 4, 5\}
+\end{equation}
+
+
 分别对应得分$1, 2, 3, 4, 5$。
 
 \subsubsection{确定题目难度得分矩阵}
@@ -276,7 +281,7 @@ L_D(i) =
     \item 计算余弦相似度。得到各个题目之间的相似度矩阵。
 \end{enumerate}
 
-分类部分结果如表\ref{talbe041618}所示（完整分类结果见\textbf{附件-题目分类.xlsx}）。
+分类部分结果如表2所示（完整分类结果见\textbf{附件-题目分类.xlsx}）。
 
 \begin{table}[h]
     \label{talbe041618}
@@ -405,7 +410,7 @@ L_D(i) =
 \begin{itemize}
     \item 避免了题目难度非黑即白的二元评价，通过模糊综合评价方法给予题目难度更多的可能性；
     \item 通过模糊数学的判断，很好地体现了人类的思维过程；
-    \item 提高了决策质量
+    \item 提高了决策质量。
 \end{itemize}
 
 \subsection{模型的缺点}
